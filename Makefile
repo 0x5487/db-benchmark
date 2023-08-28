@@ -1,3 +1,3 @@
 .PHONY: test
 bench:
-	go.exe test -benchmem -run=^$ -bench ./...
+	go test -v -run=none -benchmem -bench . -count 1

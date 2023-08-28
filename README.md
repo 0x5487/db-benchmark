@@ -55,3 +55,39 @@ Benchmark_GetValue_Pebble-16       	   66135	     15837 ns/op	   17193 B/op	    
 PASS
 ```
 
+```
+goos: linux
+goarch: amd64
+pkg: contrast-benchmark
+cpu: AMD Ryzen 7 PRO 4750U with Radeon Graphics
+Benchmark_PutValue_Badger
+Benchmark_PutValue_Badger-16               45649             25159 ns/op            3451 B/op         48 allocs/op
+Benchmark_GetValue_Badger
+Benchmark_GetValue_Badger-16              163756             16241 ns/op            8415 B/op         41 allocs/op
+Benchmark_PutValue_BoltDB
+Benchmark_PutValue_BoltDB-16               10000            120696 ns/op           21038 B/op        123 allocs/op
+Benchmark_GetValue_BoltDB
+Benchmark_GetValue_BoltDB-16              686884             27959 ns/op             723 B/op         26 allocs/op
+Benchmark_PutValue_FlyDB
+Benchmark_PutValue_FlyDB-16               136382              8919 ns/op            2934 B/op         18 allocs/op
+Benchmark_GetValue_FlyDB
+Benchmark_GetValue_FlyDB-16              1832960               562.7 ns/op           319 B/op          6 allocs/op
+Benchmark_PutValue_GoLevelDB
+Benchmark_PutValue_GoLevelDB-16           102572             12261 ns/op            2198 B/op         12 allocs/op
+Benchmark_GetValue_GoLevelDB
+Benchmark_GetValue_GoLevelDB-16           446858              2947 ns/op            1277 B/op         15 allocs/op
+Benchmark_PutValue_NutsDB
+Benchmark_PutValue_NutsDB-16              104098             12266 ns/op            3305 B/op         24 allocs/op
+Benchmark_GetValue_NutsDB
+Benchmark_GetValue_NutsDB-16              317010              4813 ns/op            1424 B/op         15 allocs/op
+Benchmark_PutValue_Pebble
+Benchmark_PutValue_Pebble-16               93738             10675 ns/op            2105 B/op          8 allocs/op
+Benchmark_GetValue_Pebble
+Benchmark_GetValue_Pebble-16               55428             22125 ns/op           25700 B/op         33 allocs/op
+Benchmark_PutValue_RoseDB
+Benchmark_PutValue_RoseDB-16               82424             15541 ns/op            3750 B/op         22 allocs/op
+Benchmark_GetValue_RoseDB
+Benchmark_GetValue_RoseDB-16              404356              3144 ns/op            1301 B/op          9 allocs/op
+PASS
+
+```

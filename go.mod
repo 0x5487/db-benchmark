@@ -3,7 +3,7 @@ module contrast-benchmark
 go 1.20
 
 require (
-	github.com/ByteStorage/FlyDB v1.0.4
+	github.com/ByteStorage/FlyDB v1.1.1
 	github.com/cockroachdb/pebble v0.0.0-20230826001808-0b401ee526b8
 	github.com/dgraph-io/badger/v3 v3.2103.5
 	github.com/nutsdb/nutsdb v0.13.1
@@ -19,6 +19,7 @@ require (
 	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/cespare/xxhash v1.1.0 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
+	github.com/chen3feng/stl4go v0.1.1 // indirect
 	github.com/cockroachdb/errors v1.11.0 // indirect
 	github.com/cockroachdb/logtags v0.0.0-20230118201751-21c54148d20b // indirect
 	github.com/cockroachdb/redact v1.1.5 // indirect
@@ -26,6 +27,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgraph-io/ristretto v0.1.1 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
+	github.com/edsrzf/mmap-go v1.1.0 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
 	github.com/getsentry/sentry-go v0.23.0 // indirect
 	github.com/gofrs/flock v0.8.1 // indirect
@@ -53,6 +55,13 @@ require (
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/rosedblabs/wal v1.3.3 // indirect
 	github.com/tidwall/btree v1.6.0 // indirect
+	github.com/tidwall/buntdb v1.3.0 // indirect
+	github.com/tidwall/gjson v1.16.0 // indirect
+	github.com/tidwall/grect v0.1.4 // indirect
+	github.com/tidwall/match v1.1.1 // indirect
+	github.com/tidwall/pretty v1.2.1 // indirect
+	github.com/tidwall/rtred v0.1.2 // indirect
+	github.com/tidwall/tinyqueue v0.1.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/xujiajun/mmap-go v1.0.1 // indirect
 	github.com/xujiajun/utils v0.0.0-20220904132955-5f7c5b914235 // indirect
