@@ -1,13 +1,14 @@
 package contrast_benchmark
 
 import (
+	"path/filepath"
+	"testing"
+
 	"github.com/ByteStorage/FlyDB/config"
 	"github.com/ByteStorage/FlyDB/engine"
 	"github.com/ByteStorage/FlyDB/flydb"
 	_const "github.com/ByteStorage/FlyDB/lib/const"
 	"github.com/stretchr/testify/assert"
-	"path/filepath"
-	"testing"
 )
 
 var FlyDB *engine.DB

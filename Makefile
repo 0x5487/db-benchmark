@@ -1,0 +1,3 @@
+.PHONY: test
+bench:
+	go.exe test -benchmem -run=^$ -bench ./...
