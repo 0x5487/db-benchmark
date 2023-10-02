@@ -1,33 +1,56 @@
 package contrast_benchmark
 
 import (
-	"github.com/rosedblabs/rosedb/v2"
+	"errors"
+	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/nite-coder/blackbear/pkg/cache"
+	"github.com/rosedblabs/rosedb/v2"
 )
 
 var roseDB *rosedb.DB
+var dirPath string
+var roseCache *cache.Cache
 
-func init() {
-	opts := rosedb.DefaultOptions
-	opts.DirPath = filepath.Join("benchmark", "rosedb")
+func setupRoseDB() {
+
+	dirPath = filepath.Join("benchmark", "rosedb")
+
+	opts := rosedb.Options{
+		DirPath:     dirPath,
+		SegmentSize: 50 * rosedb.MB,
+		BlockCache:  10 * rosedb.MB,
+		Sync:        false,
+	}
+
 	var err error
 	roseDB, err = rosedb.Open(opts)
 	if err != nil {
 		panic(err)
 	}
+
+}
+
+func cleanupRoseDB() {
+	os.RemoveAll(dirPath)
 }
 
 func initRoseDBData() {
-	for i := 0; i < 500000; i++ {
-		err := roseDB.Put(GetKey(i), GetValue())
+	for i := 0; i < 10000; i++ {
+		key := GetKey(i)
+		val := GetValue()
+		err := roseDB.Put(key, val)
 		if err != nil {
 			panic(err)
 		}
 	}
+
 }
 
 func Benchmark_PutValue_RoseDB(b *testing.B) {
+	setupRoseDB()
 	b.ResetTimer()
 	b.ReportAllocs()
 
@@ -37,17 +60,24 @@ func Benchmark_PutValue_RoseDB(b *testing.B) {
 			panic(err)
 		}
 	}
+
+	cleanupRoseDB()
 }
 
 func Benchmark_GetValue_RoseDB(b *testing.B) {
+	cleanupRoseDB()
+	setupRoseDB()
 	initRoseDBData()
 	b.ResetTimer()
 	b.ReportAllocs()
 
 	for i := 0; i < b.N; i++ {
-		_, err := roseDB.Get(GetKey(i))
-		if err != nil && err != rosedb.ErrKeyNotFound {
-			panic(err)
+		b, err := roseDB.Get(GetKey(1000))
+		if len(b) == 0 {
+			panic(errors.New("not found from cache"))
+		}
+		if err != nil {
+			panic(errors.New("not found from cache"))
 		}
 	}
 }

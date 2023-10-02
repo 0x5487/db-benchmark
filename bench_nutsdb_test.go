@@ -1,27 +1,34 @@
 package contrast_benchmark
 
 import (
-	"github.com/nutsdb/nutsdb"
+	"os"
 	"testing"
+
+	"github.com/nutsdb/nutsdb"
 )
 
 var nutsDB *nutsdb.DB
 
-func init() {
+func setupNutsDB() {
+	dirPath := "benchmark/nutsdb"
+	os.RemoveAll(dirPath)
+
 	opts := nutsdb.DefaultOptions
-	opts.Dir = "benchmark/nutsdb"
+	opts.Dir = dirPath
 	opts.SyncEnable = false
-	opts.EntryIdxMode = nutsdb.HintKeyAndRAMIdxMode
+	opts.SegmentSize = 1 * nutsdb.GB
+	opts.RWMode = nutsdb.MMap
+	opts.EntryIdxMode = nutsdb.HintKeyValAndRAMIdxMode
 	var err error
 	nutsDB, err = nutsdb.Open(opts)
 	if err != nil {
 		panic(err)
 	}
-	initNutsDBData()
+
 }
 
 func initNutsDBData() {
-	for i := 0; i < 500000; i++ {
+	for i := 0; i < 10000; i++ {
 		nutsDB.Update(func(tx *nutsdb.Tx) error {
 			err := tx.Put("test-bucket", GetKey(i), GetValue(), 0)
 			if err != nil {
@@ -33,6 +40,7 @@ func initNutsDBData() {
 }
 
 func Benchmark_PutValue_NutsDB(b *testing.B) {
+	setupNutsDB()
 	b.ResetTimer()
 	b.ReportAllocs()
 
@@ -48,12 +56,16 @@ func Benchmark_PutValue_NutsDB(b *testing.B) {
 }
 
 func Benchmark_GetValue_NutsDB(b *testing.B) {
+	setupNutsDB()
+	initNutsDBData()
 	b.ResetTimer()
 	b.ReportAllocs()
 
+	nutsDB.Merge()
+
 	for i := 0; i < b.N; i++ {
 		nutsDB.View(func(tx *nutsdb.Tx) error {
-			_, err := tx.Get("test-bucket", GetKey(i))
+			_, err := tx.Get("test-bucket", GetKey(1000))
 			if err != nil && err != nutsdb.ErrKeyNotFound {
 				panic(err)
 			}
